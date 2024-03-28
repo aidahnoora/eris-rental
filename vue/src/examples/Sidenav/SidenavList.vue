@@ -18,9 +18,9 @@
 
       <li class="nav-item">
         <sidenav-item
-          url="/pengguna"
-          :class="getRoute() === 'pengguna' ? 'active' : ''"
-          navText="Pengguna"
+          url="/users"
+          :class="getRoute() === 'users' ? 'active' : ''"
+          navText="User"
         >
           <template v-slot:icon>
             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
@@ -29,9 +29,9 @@
       </li>
       <li class="nav-item">
         <sidenav-item
-          url="/member"
-          :class="getRoute() === 'member' ? 'active' : ''"
-          navText="Data Member"
+          url="/customers"
+          :class="getRoute() === 'customers' ? 'active' : ''"
+          navText="Data Customer"
         >
           <template v-slot:icon>
             <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
@@ -40,8 +40,8 @@
       </li>
       <li class="nav-item">
         <sidenav-item
-          url="/merk"
-          :class="getRoute() === 'merk' ? 'active' : ''"
+          url="/merks"
+          :class="getRoute() === 'merks' ? 'active' : ''"
           navText="Merk Mobil"
         >
           <template v-slot:icon>
@@ -51,8 +51,8 @@
       </li>
       <li class="nav-item">
         <sidenav-item
-          url="/mobil"
-          :class="getRoute() === 'mobil' ? 'active' : ''"
+          url="/mobils"
+          :class="getRoute() === 'mobils' ? 'active' : ''"
           navText="Data Mobil"
         >
           <template v-slot:icon>

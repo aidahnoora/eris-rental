@@ -9,6 +9,10 @@ use App\Http\Controllers\Api\V2\Auth\RegisterController;
 use App\Http\Controllers\Api\V2\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\V2\Auth\ResetPasswordController;
 use App\Http\Controllers\Api\V2\MeController;
+use App\Http\Controllers\WebAPI\CustomerController;
+use App\Http\Controllers\WebAPI\MerkController;
+use App\Http\Controllers\WebAPI\MobilController;
+use App\Http\Controllers\WebAPI\UserController;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 
@@ -36,3 +40,9 @@ JsonApiRoute::server('v2')->prefix('v2')->resources(function (ResourceRegistrar 
     Route::get('me', [MeController::class, 'readProfile']);
     Route::patch('me', [MeController::class, 'updateProfile']);
 });
+
+Route::apiResource('/customers', CustomerController::class);
+Route::apiResource('/users', UserController::class);
+Route::apiResource('/merks', MerkController::class);
+Route::apiResource('/mobils', MobilController::class);
+Route::get('/get-merks', [MobilController::class, 'getMerks'])->name('get-merks');

@@ -20,7 +20,7 @@ class DataMobil extends Model
         'bbm',
         'harga_sewa',
         'transmisi',
-        'file',
+        'image',
     ];
 
     public function merk()

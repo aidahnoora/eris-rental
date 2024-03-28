@@ -23,9 +23,97 @@ const routes = [
     redirect: "/dashboard",
   },
   {
+    path: "/users",
+    name: "users",
+    component: () => import('../views/pages/user/Index.vue'),
+    meta: {
+      // middleware: auth,
+    },
+  },
+  {
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
+    meta: {
+      // middleware: auth,
+    },
+  },
+  {
+    path: "/customers",
+    name: "customers",
+    component: () => import('../views/pages/customer/Index.vue'),
+    meta: {
+      // middleware: auth,
+    },
+  },
+  {
+    path: "/customers/create",
+    name: "customers.create",
+    component: () => import('../views/pages/customer/Create.vue'),
+    meta: {
+      // middleware: auth,
+    },
+  },
+  {
+    path: "/customers/edit/:id",
+    name: "customers.edit",
+    component: () => import('../views/pages/customer/Edit.vue'),
+    meta: {
+      // middleware: auth,
+    },
+  },
+  {
+    path: "/merks",
+    name: "merks",
+    component: () => import('../views/pages/merk/Index.vue'),
+    meta: {
+      // middleware: auth,
+    },
+  },
+  {
+    path: "/merks/create",
+    name: "merks.create",
+    component: () => import('../views/pages/merk/Create.vue'),
+    meta: {
+      // middleware: auth,
+    },
+  },
+  {
+    path: "/merks/edit/:id",
+    name: "merks.edit",
+    component: () => import('../views/pages/merk/Edit.vue'),
+    meta: {
+      // middleware: auth,
+    },
+  },
+  {
+    path: "/mobils",
+    name: "mobils",
+    component: () => import('../views/pages/mobil/Index.vue'),
+    meta: {
+      // middleware: auth,
+    },
+  },
+  {
+    path: "/mobils/create",
+    name: "mobils.create",
+    component: () => import('../views/pages/mobil/Create.vue'),
+    meta: {
+      // middleware: auth,
+    },
+  },
+  {
+    path: "/mobils/edit/:id",
+    name: "mobils.edit",
+    component: () => import('../views/pages/mobil/Edit.vue'),
+    meta: {
+      // middleware: auth,
+    },
+  },
+  {
+    path: "/mobils/show/:id",
+    name: "mobils.show",
+    component: () => import('../views/pages/mobil/Show.vue'),
     meta: {
       // middleware: auth,
     },

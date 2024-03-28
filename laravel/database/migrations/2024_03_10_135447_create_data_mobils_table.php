@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('bbm');
             $table->string('harga_sewa');
             $table->string('transmisi');
-            $table->string('file');
+            $table->string('image');
             $table->timestamps();
         });
     }
