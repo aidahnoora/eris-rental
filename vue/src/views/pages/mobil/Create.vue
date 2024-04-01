@@ -14,7 +14,7 @@ const tahun_buat = ref("");
 const nomor_plat = ref("");
 const kapasitas = ref("");
 const bbm = ref("");
-const harga_sewa = ref("");
+const harga = ref("");
 const transmisi = ref("");
 
 const errors = ref([]);
@@ -49,7 +49,7 @@ const storeMobil = async () => {
   formData.append("nomor_plat", nomor_plat.value);
   formData.append("kapasitas", kapasitas.value);
   formData.append("bbm", bbm.value);
-  formData.append("harga_sewa", harga_sewa.value);
+  formData.append("harga", harga.value);
   formData.append("transmisi", transmisi.value);
 
   await api
@@ -223,14 +223,14 @@ onMounted(() => {
                     <input
                       type="number"
                       class="form-control"
-                      v-model="harga_sewa"
+                      v-model="harga"
                       placeholder="0"
                     />
                     <div
-                      v-if="errors.harga_sewa"
+                      v-if="errors.harga"
                       class="alert alert-danger mt-2"
                     >
-                      <span>{{ errors.harga_sewa[0] }}</span>
+                      <span>{{ errors.harga[0] }}</span>
                     </div>
                   </div>
                   <div class="mb-3">

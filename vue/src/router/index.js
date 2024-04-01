@@ -25,7 +25,7 @@ const routes = [
   {
     path: "/users",
     name: "users",
-    component: () => import('../views/pages/user/Index.vue'),
+    component: () => import("../views/pages/user/Index.vue"),
     meta: {
       // middleware: auth,
     },
@@ -41,7 +41,7 @@ const routes = [
   {
     path: "/customers",
     name: "customers",
-    component: () => import('../views/pages/customer/Index.vue'),
+    component: () => import("../views/pages/customer/Index.vue"),
     meta: {
       // middleware: auth,
     },
@@ -49,7 +49,7 @@ const routes = [
   {
     path: "/customers/create",
     name: "customers.create",
-    component: () => import('../views/pages/customer/Create.vue'),
+    component: () => import("../views/pages/customer/Create.vue"),
     meta: {
       // middleware: auth,
     },
@@ -57,7 +57,7 @@ const routes = [
   {
     path: "/customers/edit/:id",
     name: "customers.edit",
-    component: () => import('../views/pages/customer/Edit.vue'),
+    component: () => import("../views/pages/customer/Edit.vue"),
     meta: {
       // middleware: auth,
     },
@@ -65,7 +65,7 @@ const routes = [
   {
     path: "/merks",
     name: "merks",
-    component: () => import('../views/pages/merk/Index.vue'),
+    component: () => import("../views/pages/merk/Index.vue"),
     meta: {
       // middleware: auth,
     },
@@ -73,7 +73,7 @@ const routes = [
   {
     path: "/merks/create",
     name: "merks.create",
-    component: () => import('../views/pages/merk/Create.vue'),
+    component: () => import("../views/pages/merk/Create.vue"),
     meta: {
       // middleware: auth,
     },
@@ -81,7 +81,7 @@ const routes = [
   {
     path: "/merks/edit/:id",
     name: "merks.edit",
-    component: () => import('../views/pages/merk/Edit.vue'),
+    component: () => import("../views/pages/merk/Edit.vue"),
     meta: {
       // middleware: auth,
     },
@@ -89,7 +89,7 @@ const routes = [
   {
     path: "/mobils",
     name: "mobils",
-    component: () => import('../views/pages/mobil/Index.vue'),
+    component: () => import("../views/pages/mobil/Index.vue"),
     meta: {
       // middleware: auth,
     },
@@ -97,7 +97,7 @@ const routes = [
   {
     path: "/mobils/create",
     name: "mobils.create",
-    component: () => import('../views/pages/mobil/Create.vue'),
+    component: () => import("../views/pages/mobil/Create.vue"),
     meta: {
       // middleware: auth,
     },
@@ -105,7 +105,7 @@ const routes = [
   {
     path: "/mobils/edit/:id",
     name: "mobils.edit",
-    component: () => import('../views/pages/mobil/Edit.vue'),
+    component: () => import("../views/pages/mobil/Edit.vue"),
     meta: {
       // middleware: auth,
     },
@@ -113,10 +113,34 @@ const routes = [
   {
     path: "/mobils/show/:id",
     name: "mobils.show",
-    component: () => import('../views/pages/mobil/Show.vue'),
+    component: () => import("../views/pages/mobil/Show.vue"),
     meta: {
       // middleware: auth,
     },
+  },
+  {
+    path: "/transaksis",
+    name: "transaksis",
+    component: () => import("../views/pages/transaksi/Index.vue"),
+    // meta: { requiresAuth: true },
+  },
+  {
+    path: "/transaksis/create",
+    name: "transaksis.create",
+    component: () => import("../views/pages/transaksi/Create.vue"),
+    // meta: { requiresAuth: true },
+  },
+  {
+    path: "/transaksis/edit/:id",
+    name: "transaksis.edit",
+    component: () => import("../views/pages/transaksi/Edit.vue"),
+    // meta: { requiresAuth: true },
+  },
+  {
+    path: "/transaksis/show/:id",
+    name: "transaksis.show",
+    component: () => import("../views/pages/transaksi/Show.vue"),
+    // meta: { requiresAuth: true },
   },
   {
     path: "/examples/user-profile",

@@ -18,7 +18,7 @@ class DataMobil extends Model
         'nomor_plat',
         'kapasitas',
         'bbm',
-        'harga_sewa',
+        'harga',
         'transmisi',
         'image',
     ];
@@ -28,7 +28,7 @@ class DataMobil extends Model
         return $this->belongsTo(MerkMobil::class, 'merk_id');
     }
 
-    public function transaksis(){
-        return $this->hasMany(TransaksiPenyewaan::class);
+    public function detail_transaksis(){
+        return $this->hasMany(DetailTransaksiPenyewaan::class);
     }
 }

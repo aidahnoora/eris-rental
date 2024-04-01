@@ -15,7 +15,7 @@ const tahun_buat = ref("");
 const nomor_plat = ref("");
 const kapasitas = ref("");
 const bbm = ref("");
-const harga_sewa = ref("");
+const harga = ref("");
 const transmisi = ref("");
 
 const errors = ref([]);
@@ -44,7 +44,7 @@ onMounted(async () => {
     nomor_plat.value = response.data.data.nomor_plat;
     kapasitas.value = response.data.data.kapasitas;
     bbm.value = response.data.data.bbm;
-    harga_sewa.value = response.data.data.harga_sewa;
+    harga.value = response.data.data.harga;
     transmisi.value = response.data.data.transmisi;
   }),
     getMerks();
@@ -66,7 +66,7 @@ const updateMobil = async () => {
   formData.append("nomor_plat", nomor_plat.value);
   formData.append("kapasitas", kapasitas.value);
   formData.append("bbm", bbm.value);
-  formData.append("harga_sewa", harga_sewa.value);
+  formData.append("harga", harga.value);
   formData.append("transmisi", transmisi.value);
   formData.append("_method", "PATCH");
 
@@ -76,7 +76,7 @@ const updateMobil = async () => {
       Swal.fire({
         icon: "success",
         title: "Berhasil",
-        text: "Data berhasil disimpan!",
+        text: "Data berhasil diperbarui!",
       }).then(() => {
         router.push({ path: "/mobils" });
       });
@@ -85,7 +85,7 @@ const updateMobil = async () => {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Gagal menyimpan data. Ulangi lagi.",
+        text: "Gagal memperbarui data. Ulangi lagi.",
       });
       errors.value = error.response.data;
     });
@@ -237,14 +237,14 @@ const updateMobil = async () => {
                     <input
                       type="number"
                       class="form-control"
-                      v-model="harga_sewa"
+                      v-model="harga"
                       placeholder="0"
                     />
                     <div
-                      v-if="errors.harga_sewa"
+                      v-if="errors.harga"
                       class="alert alert-danger mt-2"
                     >
-                      <span>{{ errors.harga_sewa[0] }}</span>
+                      <span>{{ errors.harga[0] }}</span>
                     </div>
                   </div>
                   <div class="mb-3">

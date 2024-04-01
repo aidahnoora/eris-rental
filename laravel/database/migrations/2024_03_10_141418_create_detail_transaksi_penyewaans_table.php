@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('detail_transaksi_penyewaans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('transaksi_id');
+            $table->foreignId('mobil_id');
+            $table->integer('subtotal');
             $table->timestamps();
         });
     }

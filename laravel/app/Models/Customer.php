@@ -16,4 +16,8 @@ class Customer extends Model
         'no_hp',
         'alamat',
     ];
+
+    public function transaksis(){
+        return $this->hasMany(TransaksiPenyewaan::class);
+    }
 }

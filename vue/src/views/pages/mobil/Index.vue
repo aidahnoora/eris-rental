@@ -63,6 +63,7 @@ const deleteMobil = async (id) => {
                     <th>No.</th>
                     <th scope="col">Image</th>
                     <th scope="col">Nama</th>
+                    <th scope="col">Harga (per Hari)</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
@@ -85,6 +86,9 @@ const deleteMobil = async (id) => {
                     </td>
                     <td class="text-center">
                       {{ mobil.nama }}
+                    </td>
+                    <td class="text-center">
+                      Rp {{ mobil.harga }}
                     </td>
                     <td class="text-center">
                       <router-link

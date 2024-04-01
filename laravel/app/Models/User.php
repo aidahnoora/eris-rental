@@ -66,4 +66,8 @@ class User extends Authenticatable
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    public function transaksis(){
+        return $this->hasMany(TransaksiPenyewaan::class);
+    }
 }

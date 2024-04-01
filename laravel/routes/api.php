@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\V2\MeController;
 use App\Http\Controllers\WebAPI\CustomerController;
 use App\Http\Controllers\WebAPI\MerkController;
 use App\Http\Controllers\WebAPI\MobilController;
+use App\Http\Controllers\WebAPI\TransaksiController;
 use App\Http\Controllers\WebAPI\UserController;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
@@ -46,3 +47,9 @@ Route::apiResource('/users', UserController::class);
 Route::apiResource('/merks', MerkController::class);
 Route::apiResource('/mobils', MobilController::class);
 Route::get('/get-merks', [MobilController::class, 'getMerks'])->name('get-merks');
+
+Route::apiResource('/transaksis', TransaksiController::class);
+Route::get('/get-customers', [TransaksiController::class, 'getCustomers'])->name('get-customers');
+Route::get('/get-mobils', [TransaksiController::class, 'getMobils'])->name('get-mobils');
+Route::get('/transaksis/{transaksiId}/items', [TransaksiController::class, 'getItemTransaksis']);
+Route::get('/laporan-transaksi-penjualan', [TransaksiController::class, 'report']);

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('nomor_plat');
             $table->string('kapasitas');
             $table->string('bbm');
-            $table->string('harga_sewa');
+            $table->string('harga');
             $table->string('transmisi');
             $table->string('image');
             $table->timestamps();

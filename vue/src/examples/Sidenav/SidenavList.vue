@@ -62,9 +62,9 @@
       </li>
       <li class="nav-item">
         <sidenav-item
-          url="/transaksi"
-          :class="getRoute() === 'transaksi' ? 'active' : ''"
-          navText="Transaksi"
+          url="/transaksis"
+          :class="getRoute() === 'transaksis' ? 'active' : ''"
+          navText="Transaksi Penyewaan"
         >
           <template v-slot:icon>
             <i class="ni ni-collection text-info text-sm opacity-10"></i>

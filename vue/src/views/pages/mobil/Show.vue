@@ -14,16 +14,14 @@ const tahun_buat = ref("");
 const nomor_plat = ref("");
 const kapasitas = ref("");
 const bbm = ref("");
-const harga_sewa = ref("");
+const harga = ref("");
 const transmisi = ref("");
-const merk_id = ref("");
-// const merkNama = ref("");
+const merk = ref("");
 
 const baseURL = "http://localhost:8000/storage/posts/";
 
 onMounted(async () => {
   await api.get(`/api/mobils/${route.params.id}`).then((response) => {
-    merk_id.value = response.data.data.merk_id;
     nama.value = response.data.data.nama;
     kode.value = response.data.data.kode;
     model.value = response.data.data.model;
@@ -31,11 +29,11 @@ onMounted(async () => {
     nomor_plat.value = response.data.data.nomor_plat;
     kapasitas.value = response.data.data.kapasitas;
     bbm.value = response.data.data.bbm;
-    harga_sewa.value = response.data.data.harga_sewa;
+    harga.value = response.data.data.harga;
     transmisi.value = response.data.data.transmisi;
 
     image.value = response.data.data.image;
-    // merkNama.value = response.data.data.merk.nama;
+    merk.value = response.data.data.merk.nama;
   });
 });
 </script>
@@ -69,13 +67,13 @@ onMounted(async () => {
                     />
                   </td>
                 </tr>
-                <!-- <tr>
+                <tr>
                   <td scope="col">Merk</td>
                   <td>:</td>
                   <td>
-                    {{ merkNama }}
+                    {{ merk }}
                   </td>
-                </tr> -->
+                </tr>
                 <tr>
                   <td scope="col">Nama</td>
                   <td>:</td>
@@ -129,7 +127,7 @@ onMounted(async () => {
                   <td scope="col">Harga Sewa</td>
                   <td>:</td>
                   <td>
-                    Rp {{ harga_sewa }}
+                    Rp {{ harga }}
                   </td>
                 </tr>
                 <tr>

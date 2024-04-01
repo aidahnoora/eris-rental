@@ -10,17 +10,31 @@ class TransaksiPenyewaan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'mobil_id',
+        'customer_id',
+        'user_id',
+        'nota',
         'tgl_sewa',
         'tgl_kembali',
-        'denda',
-        'total_sewa',
-        // 'bayar',
-        // 'kembalian'
+        'durasi_sewa',
+        'tgl_pengembalian_mobil',
+        'status',
+        'lama_telat',
+        'denda_per_hari',
+        'total_denda',
+        'total_bayar',
     ];
 
-    public function mobil()
+    public function customer()
     {
-        return $this->belongsTo(DataMobil::class, 'mobil_id');
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function detail_transaksis(){
+        return $this->hasMany(DetailTransaksiPenyewaan::class);
     }
 }

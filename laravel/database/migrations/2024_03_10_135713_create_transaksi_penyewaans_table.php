@@ -13,13 +13,18 @@ return new class extends Migration
     {
         Schema::create('transaksi_penyewaans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('mobil_id');
-            $table->dateTime('tgl_sewa');
-            $table->dateTime('tgl_kembali');
-            $table->double('denda');
-            $table->double('total_sewa');
-            // $table->double('bayar');
-            // $table->double('kembalian');
+            $table->foreignId('customer_id');
+            $table->foreignId('user_id');
+            $table->string('nota');
+            $table->date('tgl_sewa');
+            $table->date('tgl_kembali');
+            $table->integer('durasi_sewa');
+            $table->date('tgl_pengembalian_mobil')->nullable();
+            $table->enum('status', ['0', '1'])->default('0');
+            $table->integer('lama_telat')->nullable()->default(0);
+            $table->integer('denda_per_hari')->nullable()->default(0);
+            $table->integer('total_denda')->nullable()->default(0);
+            $table->integer('total_bayar');
             $table->timestamps();
         });
     }

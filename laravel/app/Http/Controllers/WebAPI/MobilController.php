@@ -37,7 +37,7 @@ class MobilController extends Controller
             'nomor_plat' => 'required',
             'kapasitas' => 'required',
             'bbm' => 'required',
-            'harga_sewa' => 'required',
+            'harga' => 'required',
             'transmisi' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -58,7 +58,7 @@ class MobilController extends Controller
             'nomor_plat' => $request->nomor_plat,
             'kapasitas' => $request->kapasitas,
             'bbm' => $request->bbm,
-            'harga_sewa' => $request->harga_sewa,
+            'harga' => $request->harga,
             'transmisi' => $request->transmisi,
             'image' => $image->hashName(),
         ]);
@@ -68,7 +68,7 @@ class MobilController extends Controller
 
     public function show($id)
     {
-        $mobils = DataMobil::find($id);
+        $mobils = DataMobil::with('merk')->find($id);
 
         return new GeneralResource(true, 'Detail Data Mobils!', $mobils);
     }
@@ -84,7 +84,7 @@ class MobilController extends Controller
             'nomor_plat' => 'required',
             'kapasitas' => 'required',
             'bbm' => 'required',
-            'harga_sewa' => 'required',
+            'harga' => 'required',
             'transmisi' => 'required',
         ]);
 
@@ -109,7 +109,7 @@ class MobilController extends Controller
                 'nomor_plat' => $request->nomor_plat,
                 'kapasitas' => $request->kapasitas,
                 'bbm' => $request->bbm,
-                'harga_sewa' => $request->harga_sewa,
+                'harga' => $request->harga,
                 'transmisi' => $request->transmisi,
                 'image' => $image->hashName(),
             ]);
@@ -123,7 +123,7 @@ class MobilController extends Controller
                 'nomor_plat' => $request->nomor_plat,
                 'kapasitas' => $request->kapasitas,
                 'bbm' => $request->bbm,
-                'harga_sewa' => $request->harga_sewa,
+                'harga' => $request->harga,
                 'transmisi' => $request->transmisi,
             ]);
         }
