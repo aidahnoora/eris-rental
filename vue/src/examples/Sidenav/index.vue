@@ -33,7 +33,7 @@
               : logo
           "
           class="navbar-brand-img h-100"
-          alt="main_logo"
+          alt="main_logo" style="border-radius: 100%"
         />
         <span class="ms-2 font-weight-bold me-2">Eris Rental Mobil</span>
       </router-link>
@@ -44,7 +44,7 @@
 </template>
 <script>
 import SidenavList from "./SidenavList.vue";
-import logo from "@/assets/img/logo-ct-dark.png";
+import logo from "@/assets/img/logo.png";
 import logoWhite from "@/assets/img/logo-ct.png";
 
 export default {

@@ -1,21 +1,14 @@
 <?php
 
+use App\Http\Controllers\WebAPI\AuthController;
+use App\Http\Controllers\WebAPI\DashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use LaravelJsonApi\Laravel\Routing\ResourceRegistrar;
-use App\Http\Controllers\Api\V2\Auth\LoginController;
-use App\Http\Controllers\Api\V2\Auth\LogoutController;
-use App\Http\Controllers\Api\V2\Auth\RegisterController;
-use App\Http\Controllers\Api\V2\Auth\ForgotPasswordController;
-use App\Http\Controllers\Api\V2\Auth\ResetPasswordController;
-use App\Http\Controllers\Api\V2\MeController;
 use App\Http\Controllers\WebAPI\CustomerController;
 use App\Http\Controllers\WebAPI\MerkController;
 use App\Http\Controllers\WebAPI\MobilController;
 use App\Http\Controllers\WebAPI\TransaksiController;
 use App\Http\Controllers\WebAPI\UserController;
-use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
-use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,18 +21,12 @@ use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 |
 */
 
-Route::prefix('v2')->middleware('json.api')->group(function () {
-    Route::post('/login', LoginController::class)->name('login');
-    Route::post('/logout', LogoutController::class)->middleware('auth:api');
-    Route::post('/register', RegisterController::class);
-    Route::post('/password-forgot', ForgotPasswordController::class);
-    Route::post('/password-reset', ResetPasswordController::class)->name('password.reset');
-});
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout']);
 
-JsonApiRoute::server('v2')->prefix('v2')->resources(function (ResourceRegistrar $server) {
-    $server->resource('users', JsonApiController::class);
-    Route::get('me', [MeController::class, 'readProfile']);
-    Route::patch('me', [MeController::class, 'updateProfile']);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });
 
 Route::apiResource('/customers', CustomerController::class);
@@ -53,3 +40,6 @@ Route::get('/get-customers', [TransaksiController::class, 'getCustomers'])->name
 Route::get('/get-mobils', [TransaksiController::class, 'getMobils'])->name('get-mobils');
 Route::get('/transaksis/{transaksiId}/items', [TransaksiController::class, 'getItemTransaksis']);
 Route::get('/laporan-transaksi-penjualan', [TransaksiController::class, 'report']);
+
+Route::get('/get-transaction', [DashboardController::class, 'getTransaction'])->name('get-transaction');
+Route::get('/get-categories', [DashboardController::class, 'getCategories'])->name('get-categories');

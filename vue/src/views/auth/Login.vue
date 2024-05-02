@@ -1,127 +1,95 @@
 <template>
-    <div class="container top-0 position-sticky z-index-sticky">
-      <div class="row">
-        <div class="col-12">
-          <navbar
-            isBlur="blur  border-radius-lg my-3 py-2 start-0 end-0 mx-4 shadow"
-            v-bind:darkMode="true"
-            isBtn="bg-gradient-success"
-          />
+  <main class="mt-0 main-content">
+    <section>
+      <div class="page-header min-vh-100">
+        <div v-if="loginFailed" class="alert alert-danger">
+          Email atau Password Anda salah.
         </div>
-      </div>
-    </div>
-    <main class="mt-0 main-content">
-      <section>
-        <div class="page-header min-vh-100">
-          <div class="container">
-            <div class="row">
-              <div class="mx-auto col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0">
-                <div class="card card-plain">
-                  <div class="pb-0 card-header text-start">
-                    <br><br>
-                    <h4 class="font-weight-bolder">Sign In</h4>
-                  </div>
-                  <div class="card-body">
-                    <form role="form" @submit.prevent="handleLogin()">
-                      <div class="mb-3">
-                        <argon-input
-                            v-model="user.email"
-                            type="email"
-                            class="mb-0"
-                            placeholder="Email"
-                            name="email"
-                            size="lg" />
-                            <validation-error :errors="apiValidationErrors.email" />
-                      </div>
-                      <div class="mb-3">
-                        <argon-input
-                            v-model="user.password"
-                            type="password"
-                            placeholder="Password"
-                            name="password"
-                            size="lg" />
-                      </div>
-                      <argon-switch id="rememberMe">Remember me</argon-switch>
-  
-                      <div class="text-center">
-                        <argon-button
-                          class="mt-4"
-                          variant="gradient"
-                          color="success"
-                          fullWidth
-                          size="lg"
-                        >Sign in</argon-button>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="px-1 pt-0 text-center card-footer px-lg-2">
-                    <p class="mx-auto mb-4 text-sm">
-                      Don't have an account?
-                      <router-link
-                        :to="{ name: 'Register' }"
-                        class="text-success text-gradient font-weight-bold"
-                      >Sign up</router-link>
-                    </p>
-                    <p class="mx-auto mb-4 text-sm">
-                      <router-link
-                        :to="{ name: 'Forgot Password' }"
-                        class="text-dark text-gradient font-weight-bold"
-                      >Forgot Password?</router-link>
-                    </p>
-                  </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="card">
+                <div class="pb-0 card-header text-start">
+                  <br /><br />
+                  <h4 class="font-weight-bolder text-center">
+                    <img
+                      :src="logo"
+                      class="navbar-brand-img h-100"
+                      alt="main_logo"
+                      width="100"
+                      style="border-radius: 100%"
+                    />
+                    <br /><br />
+                    Sistem Informasi Eris Rental Mobil <br />
+                    Login
+                  </h4>
                 </div>
-              </div>
-              <div
-                class="top-0 my-auto text-center col-6 d-lg-flex d-none h-100 pe-0 position-absolute end-0 justify-content-center flex-column"
-              >
-                <div
-                  class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
-                  style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
-            background-size: cover;"
-                >
-                  <span class="mask bg-gradient-success opacity-6"></span>
-                  <h4
-                    class="mt-5 text-white font-weight-bolder position-relative"
-                  >"Attention is the new currency"</h4>
-                  <p
-                    class="text-white position-relative"
-                  >The more effortless the writing looks, the more effort the writer actually put into the process.</p>
+                <div class="card-body">
+                  <form @submit.prevent="login">
+                    <div class="mb-3">
+                      <input
+                        type="email"
+                        placeholder="Email"
+                        class="form-control"
+                        name="email"
+                        v-model="user.email"
+                      />
+                      <div
+                        v-if="validation.email"
+                        class="mt-2 alert alert-danger"
+                      >
+                        Masukkan Email
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <input
+                        type="password"
+                        placeholder="Password"
+                        class="form-control"
+                        name="password"
+                        v-model="user.password"
+                      />
+                      <div
+                        v-if="validation.password"
+                        class="mt-2 alert alert-danger"
+                      >
+                        Masukkan Password
+                      </div>
+                    </div>
+                    <argon-switch id="rememberMe">Remember me</argon-switch>
+
+                    <div class="text-center">
+                      <button
+                        class="btn bg-gradient-success mt-4 w-100 btn-lg"
+                        type="submit"
+                      >
+                        Sign in
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </main>
-  </template>
-  
+      </div>
+    </section>
+  </main>
+</template>
+
 <script>
-import Navbar from "@/examples/PageLayout/Navbar.vue";
-import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonSwitch from "@/components/ArgonSwitch.vue";
-import ArgonButton from "@/components/ArgonButton.vue";
-import formMixin from "../../mixins/form-mixin.js"
-import ValidationError from "../../components/ValidationError.vue";
-import showSwal from "../../mixins/showSwal.js";
+import axios from "axios";
+import Swal from "sweetalert2";
+import logo from "@/assets/img/logo.png";
+
 const body = document.getElementsByTagName("body")[0];
 
 export default {
-  name: "Login",
+  name: "login",
   components: {
-    Navbar,
-    ArgonInput,
     ArgonSwitch,
-    ArgonButton,
-    ValidationError
-  },
-  mixins: [formMixin, showSwal],
-  data() {
-    return {
-        user: {
-            email: 'admin@jsonapi.com',
-            password: 'secret'
-        },
-    }
   },
   created() {
     this.$store.state.hideConfigButton = true;
@@ -137,23 +105,81 @@ export default {
     this.$store.state.showFooter = true;
     body.classList.add("bg-gray-100");
   },
+  data() {
+    return {
+      logo,
+      loggedIn: localStorage.getItem("loggedIn"),
+      token: localStorage.getItem("token"),
+      user: [],
+      validation: [],
+      loginFailed: null,
+    };
+  },
   methods: {
-    async handleLogin() {
-      try{
-        this.resetApiValidation();
-        await this.$store.dispatch("auth/login", this.user);
-        this.$router.push({name: "Dashboard"});
+    login() {
+      if (this.user.email && this.user.password) {
+        axios
+          .get("http://localhost:8000/sanctum/csrf-cookie")
+          .then((response) => {
+            console.log(response);
+
+            axios
+              .post("http://localhost:8000/api/login", {
+                email: this.user.email,
+                password: this.user.password,
+              })
+              .then((res) => {
+                console.log(res);
+
+                if (res.data.success) {
+                  localStorage.setItem("loggedIn", "true");
+                  localStorage.setItem("token", res.data.token);
+
+                  this.loggedIn = true;
+
+                  // return this.$router.push({ path: "dashboard" });
+                  Swal.fire({
+                    icon: "success",
+                    title: "Berhasil",
+                    text: "Login berhasil!",
+                  }).then(() => {
+                    this.$router.push({ name: "Dashboard" });
+                  });
+                } else {
+                  // this.loginFailed = true;
+
+                  Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Gagal login!",
+                  });
+                  this.validation.value = this.error.response.data;
+                  this.loginFailed = true;
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          });
       }
-      catch(error)
-      {
-        this.setApiValidation(error.response.data.errors);
-        this.showSwal({
-          type:"error",
-          message: "Invalid credentials!"
-        });
+
+      this.validation = [];
+
+      if (!this.user.email) {
+        this.validation.email = true;
+      }
+
+      if (!this.user.password) {
+        this.validation.password = true;
       }
     },
-  }
+  },
+
+  //check user already logged in
+  mounted() {
+    if (this.loggedIn) {
+      return this.$router.push({ name: "Dashboard" });
+    }
+  },
 };
 </script>
-  

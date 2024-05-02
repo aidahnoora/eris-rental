@@ -10,7 +10,7 @@
         "laravel-json-api/laravel": "^3.0",
         "laravel/framework": "^10.0",
         "laravel/passport": "^11.3",
-        "laravel/sanctum": "^3.0",
+        "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.7"
     },
     "require-dev": {
