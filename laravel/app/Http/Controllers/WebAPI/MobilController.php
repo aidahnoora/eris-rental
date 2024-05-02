@@ -31,7 +31,7 @@ class MobilController extends Controller
         $validator = Validator::make($request->all(), [
             'merk_id' => 'required',
             'nama' => 'required',
-            'kode' => 'required',
+            'stok' => 'required',
             'model' => 'required',
             'tahun_buat' => 'required',
             'nomor_plat' => 'required',
@@ -52,7 +52,7 @@ class MobilController extends Controller
         $mobils = DataMobil::create([
             'merk_id' => $request->merk_id,
             'nama' => $request->nama,
-            'kode' => $request->kode,
+            'stok' => $request->stok,
             'model' => $request->model,
             'tahun_buat' => $request->tahun_buat,
             'nomor_plat' => $request->nomor_plat,
@@ -78,7 +78,7 @@ class MobilController extends Controller
         $validator = Validator::make($request->all(), [
             'merk_id' => 'required',
             'nama' => 'required',
-            'kode' => 'required',
+            'stok' => 'required',
             'model' => 'required',
             'tahun_buat' => 'required',
             'nomor_plat' => 'required',
@@ -103,7 +103,7 @@ class MobilController extends Controller
             $mobil->update([
                 'merk_id' => $request->merk_id,
                 'nama' => $request->nama,
-                'kode' => $request->kode,
+                'stok' => $request->stok,
                 'model' => $request->model,
                 'tahun_buat' => $request->tahun_buat,
                 'nomor_plat' => $request->nomor_plat,
@@ -117,7 +117,7 @@ class MobilController extends Controller
             $mobil->update([
                 'merk_id' => $request->merk_id,
                 'nama' => $request->nama,
-                'kode' => $request->kode,
+                'stok' => $request->stok,
                 'model' => $request->model,
                 'tahun_buat' => $request->tahun_buat,
                 'nomor_plat' => $request->nomor_plat,

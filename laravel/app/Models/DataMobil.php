@@ -12,7 +12,7 @@ class DataMobil extends Model
     protected $fillable = [
         'merk_id',
         'nama',
-        'kode',
+        'stok',
         'model',
         'tahun_buat',
         'nomor_plat',

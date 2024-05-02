@@ -9,7 +9,7 @@ const route = useRoute();
 
 const image = ref("");
 const nama = ref("");
-const kode = ref("");
+const stok = ref("");
 const model = ref("");
 const tahun_buat = ref("");
 const nomor_plat = ref("");
@@ -38,7 +38,7 @@ onMounted(async () => {
   await api.get(`/api/mobils/${route.params.id}`).then((response) => {
     merk_id.value = response.data.data.merk_id;
     nama.value = response.data.data.nama;
-    kode.value = response.data.data.kode;
+    stok.value = response.data.data.stok;
     model.value = response.data.data.model;
     tahun_buat.value = response.data.data.tahun_buat;
     nomor_plat.value = response.data.data.nomor_plat;
@@ -60,7 +60,7 @@ const updateMobil = async () => {
   formData.append("image", image.value);
   formData.append("merk_id", merk_id.value);
   formData.append("nama", nama.value);
-  formData.append("kode", kode.value);
+  formData.append("stok", stok.value);
   formData.append("model", model.value);
   formData.append("tahun_buat", tahun_buat.value);
   formData.append("nomor_plat", nomor_plat.value);
@@ -150,15 +150,15 @@ const updateMobil = async () => {
                     </div>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label fw-bold">Kode</label>
+                    <label class="form-label fw-bold">Stok</label>
                     <input
-                      type="text"
+                      type="number"
                       class="form-control"
-                      v-model="kode"
-                      placeholder="Masukkan kode"
+                      v-model="stok"
+                      placeholder="Masukkan stok"
                     />
-                    <div v-if="errors.kode" class="alert alert-danger mt-2">
-                      <span>{{ errors.kode[0] }}</span>
+                    <div v-if="errors.stok" class="alert alert-danger mt-2">
+                      <span>{{ errors.stok[0] }}</span>
                     </div>
                   </div>
                   <div class="mb-3">

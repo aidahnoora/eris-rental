@@ -62,6 +62,7 @@ const deleteCustomer = async id => {
                     <th scope="col">Nama</th>
                     <th scope="col">Umur</th>
                     <th scope="col">Identitas</th>
+                    <th scope="col">Jaminan</th>
                     <th scope="col">No. Hp</th>
                     <th scope="col">Alamat</th>
                     <th scope="col">Actions</th>
@@ -69,7 +70,7 @@ const deleteCustomer = async id => {
                 </thead>
                 <tbody>
                   <tr v-if="customers.length == 0">
-                    <td colspan="7" class="text-center">
+                    <td colspan="8" class="text-center">
                       <div class="alert alert-danger mb-0 text-white">
                         Data Belum Tersedia!
                       </div>
@@ -89,6 +90,9 @@ const deleteCustomer = async id => {
                     </td>
                     <td class="text-center">
                       {{ customer.identitas }}
+                    </td>
+                    <td class="text-center">
+                      {{ customer.jaminan }}
                     </td>
                     <td class="text-center">
                       {{ customer.no_hp }}

@@ -11,7 +11,7 @@ const route = useRoute();
 const customers = ref([]);
 const customer_id = ref("");
 
-const nota = ref("");
+// const nota = ref("");
 const tgl_sewa = ref("");
 const tgl_kembali = ref("");
 const tgl_pengembalian_mobil = ref("");
@@ -51,7 +51,7 @@ const getItemTransaksis = async () => {
 onMounted(async () => {
   await api.get(`/api/transaksis/${route.params.id}`).then((response) => {
     customer_id.value = response.data.data.customer_id;
-    nota.value = response.data.data.nota;
+    // nota.value = response.data.data.nota;
     tgl_sewa.value = response.data.data.tgl_sewa;
     tgl_kembali.value = response.data.data.tgl_kembali;
     tgl_pengembalian_mobil.value = response.data.data.tgl_pengembalian_mobil;
@@ -95,7 +95,7 @@ const updateTransaksi = async () => {
   let formData = new FormData();
 
   formData.append("customer_id", customer_id.value);
-  formData.append("nota", nota.value);
+  // formData.append("nota", nota.value);
   formData.append("tgl_sewa", tgl_sewa.value);
   formData.append("tgl_kembali", tgl_kembali.value);
   formData.append("tgl_pengembalian_mobil", tgl_pengembalian_mobil.value);
@@ -167,7 +167,7 @@ const updateTransaksi = async () => {
                       <span>{{ errors.customer_id[0] }}</span>
                     </div>
                   </div>
-                  <div class="mb-3">
+                  <!-- <div class="mb-3">
                     <label class="form-label fw-bold">Nota</label>
                     <input
                       type="text"
@@ -178,7 +178,7 @@ const updateTransaksi = async () => {
                     <div v-if="errors.nota" class="alert alert-danger mt-2">
                       <span>{{ errors.nota[0] }}</span>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="mb-3">
                     <label class="form-label fw-bold"
                       >Tanggal Pengembalian</label

@@ -12,7 +12,7 @@ class TransaksiPenyewaan extends Model
     protected $fillable = [
         'customer_id',
         'user_id',
-        'nota',
+        // 'nota',
         'tgl_sewa',
         'tgl_kembali',
         'durasi_sewa',

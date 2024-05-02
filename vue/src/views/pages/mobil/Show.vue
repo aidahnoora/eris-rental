@@ -8,7 +8,7 @@ const route = useRoute();
 
 const image = ref("");
 const nama = ref("");
-const kode = ref("");
+const stok = ref("");
 const model = ref("");
 const tahun_buat = ref("");
 const nomor_plat = ref("");
@@ -23,7 +23,7 @@ const baseURL = "http://localhost:8000/storage/posts/";
 onMounted(async () => {
   await api.get(`/api/mobils/${route.params.id}`).then((response) => {
     nama.value = response.data.data.nama;
-    kode.value = response.data.data.kode;
+    stok.value = response.data.data.stok;
     model.value = response.data.data.model;
     tahun_buat.value = response.data.data.tahun_buat;
     nomor_plat.value = response.data.data.nomor_plat;
@@ -82,10 +82,10 @@ onMounted(async () => {
                   </td>
                 </tr>
                 <tr>
-                  <td scope="col">Kode</td>
+                  <td scope="col">Stok</td>
                   <td>:</td>
                   <td>
-                    {{ kode }}
+                    {{ stok }}
                   </td>
                 </tr>
                 <tr>

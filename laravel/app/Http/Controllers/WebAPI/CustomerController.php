@@ -22,6 +22,7 @@ class CustomerController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'identitas' => 'required',
+            'jaminan' => 'required',
             'umur' => 'required',
             'no_hp' => 'required',
             'alamat' => 'required',
@@ -34,6 +35,7 @@ class CustomerController extends Controller
         $customer = Customer::create([
             'nama' => $request->nama,
             'identitas' => $request->identitas,
+            'jaminan' => $request->jaminan,
             'umur' => $request->umur,
             'no_hp' => $request->no_hp,
             'alamat' => $request->alamat,
@@ -54,6 +56,7 @@ class CustomerController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'identitas' => 'required',
+            'jaminan' => 'required',
             'umur' => 'required',
             'no_hp' => 'required',
             'alamat' => 'required',
@@ -68,6 +71,7 @@ class CustomerController extends Controller
         $customer->update([
             'nama' => $request->nama,
             'identitas' => $request->identitas,
+            'jaminan' => $request->jaminan,
             'umur' => $request->umur,
             'no_hp' => $request->no_hp,
             'alamat' => $request->alamat,

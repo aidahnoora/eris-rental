@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\DataMobil;
 use App\Models\DetailTransaksiPenyewaan;
 use App\Models\TransaksiPenyewaan;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -33,7 +34,7 @@ class TransaksiController extends Controller
 
     public function getMobils()
     {
-        $mobils = DataMobil::paginate(100);
+        $mobils = DataMobil::where('stok', '>', 0)->paginate(100);
 
         return new GeneralResource(true, 'List Mobil', $mobils);
     }
@@ -50,11 +51,11 @@ class TransaksiController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'customer_id' => 'required',
-            'nota' => 'required',
+            // 'nota' => 'required',
             'tgl_sewa' => 'required',
             'tgl_kembali' => 'required',
             'durasi_sewa' => 'required',
-            'status' => 'required',
+            // 'status' => 'required',
             'total_bayar' => 'required',
             'items' => 'required|array',
             'items.*.mobil_id' => 'required',
@@ -68,11 +69,11 @@ class TransaksiController extends Controller
             $header = TransaksiPenyewaan::create([
                 'user_id' => 1,
                 'customer_id' => $request->customer_id,
-                'nota' => $request->nota,
+                // 'nota' => $request->nota,
                 'tgl_sewa' => $request->tgl_sewa,
                 'tgl_kembali' => $request->tgl_kembali,
                 'durasi_sewa' => $request->durasi_sewa,
-                'status' => $request->status,
+                // 'status' => $request->status,
                 'total_bayar' => $request->total_bayar,
             ]);
 
@@ -91,7 +92,12 @@ class TransaksiController extends Controller
 
             // Update otomatis stok data barang
             foreach ($request->items as $item) {
-                DataMobil::where('id', $item['mobil_id']);
+                $mobil = DataMobil::where('id', $item['mobil_id'])->first();
+
+                if ($mobil) {
+                    $mobil->stok -= 1;
+                    $mobil->save();
+                };
             }
 
             return $header;
@@ -109,31 +115,50 @@ class TransaksiController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'customer_id' => 'required',
-            'nota' => 'required',
-            'status' => 'required',
-            'tgl_pengembalian_mobil' => 'required',
-        ]);
+        try {
+            $validator = Validator::make($request->all(), [
+                'customer_id' => 'required',
+                // 'nota' => 'required',
+                'status' => 'required',
+                'tgl_pengembalian_mobil' => 'required',
+            ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 422);
+            }
+
+            DB::beginTransaction();
+
+            $transaksi = TransaksiPenyewaan::find($id);
+
+            $transaksi->update([
+                'customer_id' => $request->customer_id,
+                // 'nota' => $request->nota,
+                'tgl_pengembalian_mobil' => $request->tgl_pengembalian_mobil,
+                'status' => $request->status,
+                'lama_telat' => $request->lama_telat,
+                'denda_per_hari' => $request->denda_per_hari,
+                'total_denda' => $request->total_denda,
+                'total_bayar' => $request->total_bayar,
+            ]);
+
+            $items = DetailTransaksiPenyewaan::where('transaksi_id', $transaksi->id)->get();
+
+            foreach ($items as $item) {
+                $mobil = DataMobil::find($item->mobil_id);
+
+                if ($mobil) {
+                    $mobil->stok += 1;
+                    $mobil->save();
+                }
+            }
+
+            DB::commit();
+
+            return new GeneralResource(true, 'Data Transaksi Berhasil Diubah!', $transaksi);
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
-
-        $transaksi = TransaksiPenyewaan::find($id);
-
-        $transaksi->update([
-            'customer_id' => $request->customer_id,
-            'nota' => $request->nota,
-            'tgl_pengembalian_mobil' => $request->tgl_pengembalian_mobil,
-            'status' => $request->status,
-            'lama_telat' => $request->lama_telat,
-            'denda_per_hari' => $request->denda_per_hari,
-            'total_denda' => $request->total_denda,
-            'total_bayar' => $request->total_bayar,
-        ]);
-
-        return new GeneralResource(true, 'Data Transaksi Berhasil Diubah!', $transaksi);
     }
 
     public function destroy($id)

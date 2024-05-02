@@ -24,7 +24,8 @@ class UsersSeeder extends Seeder
         User::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
-            'password' => 'admin'
+            'password' => 'admin',
+            'image' => 'bruce-mars.jpg',
         ]);
     }
 }

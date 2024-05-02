@@ -8,7 +8,7 @@ const router = useRouter();
 
 const image = ref("");
 const nama = ref("");
-const kode = ref("");
+const stok = ref("");
 const model = ref("");
 const tahun_buat = ref("");
 const nomor_plat = ref("");
@@ -43,7 +43,7 @@ const storeMobil = async () => {
   formData.append("image", image.value);
   formData.append("merk_id", merk_id.value);
   formData.append("nama", nama.value);
-  formData.append("kode", kode.value);
+  formData.append("stok", stok.value);
   formData.append("model", model.value);
   formData.append("tahun_buat", tahun_buat.value);
   formData.append("nomor_plat", nomor_plat.value);
@@ -136,15 +136,15 @@ onMounted(() => {
                     </div>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label fw-bold">Kode</label>
+                    <label class="form-label fw-bold">Stok</label>
                     <input
-                      type="text"
+                      type="number"
                       class="form-control"
-                      v-model="kode"
-                      placeholder="Masukkan kode"
+                      v-model="stok"
+                      placeholder="Masukkan stok"
                     />
-                    <div v-if="errors.kode" class="alert alert-danger mt-2">
-                      <span>{{ errors.kode[0] }}</span>
+                    <div v-if="errors.stok" class="alert alert-danger mt-2">
+                      <span>{{ errors.stok[0] }}</span>
                     </div>
                   </div>
                   <div class="mb-3">

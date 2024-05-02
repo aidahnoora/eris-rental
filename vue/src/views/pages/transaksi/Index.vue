@@ -60,7 +60,7 @@ const deleteTransaksi = async (id) => {
                 <thead class="text-center">
                   <tr>
                     <th>No.</th>
-                    <th scope="col">Nota</th>
+                    <!-- <th scope="col">Nota</th> -->
                     <th scope="col">Customer</th>
                     <th scope="col">Tanggal Sewa</th>
                     <th scope="col">Total Bayar</th>
@@ -82,9 +82,9 @@ const deleteTransaksi = async (id) => {
                     :key="index"
                   >
                     <td class="text-center">{{ index + 1 }}.</td>
-                    <td class="text-center">
+                    <!-- <td class="text-center">
                       {{ transaksi.nota }}
-                    </td>
+                    </td> -->
                     <td class="text-center">
                       {{ transaksi.customer.nama }}
                     </td>
@@ -130,7 +130,7 @@ const deleteTransaksi = async (id) => {
                               >DETAIL</router-link
                             >
                           </li>
-                          <li>
+                          <li v-if="transaksi.status == 0">
                             <router-link
                               :to="{
                                 name: 'transaksis.edit',

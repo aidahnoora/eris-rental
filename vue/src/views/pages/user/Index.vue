@@ -3,6 +3,7 @@ import { onMounted, ref } from "vue";
 import api from "../../api";
 
 const users = ref([]);
+const baseURL = "http://localhost:8000/storage/photos/";
 
 const fetchDataUsers = async () => {
   await api.get("/api/users").then((response) => {
@@ -32,6 +33,7 @@ onMounted(() => {
                   <tr>
                     <th>No.</th>
                     <th scope="col">Nama</th>
+                    <th scope="col">Foto</th>
                     <th scope="col">Email</th>
                   </tr>
                 </thead>
@@ -51,6 +53,13 @@ onMounted(() => {
                     <td class="text-center">{{ index + 1 }}.</td>
                     <td>
                       {{ user.name }}
+                    </td>
+                    <td class="text-center">
+                      <img
+                        :src="`${baseURL}${user.image}`"
+                        width="100"
+                        style="border-radius: 100%;"
+                      />
                     </td>
                     <td class="text-center">
                       {{ user.email }}
