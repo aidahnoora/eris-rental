@@ -43,3 +43,8 @@ Route::get('/laporan-transaksi-penjualan', [TransaksiController::class, 'report'
 
 Route::get('/get-transaction', [DashboardController::class, 'getTransaction'])->name('get-transaction');
 Route::get('/get-categories', [DashboardController::class, 'getCategories'])->name('get-categories');
+
+Route::get('/transaksi-penyewaan', [TransaksiController::class, 'getByTanggal']);
+
+Route::get('/transaksi-penyewaan/filter', [TransaksiController::class, 'filter']);
+Route::get('/transaksi-penyewaan/export-pdf', [TransaksiController::class, 'exportPDF']);

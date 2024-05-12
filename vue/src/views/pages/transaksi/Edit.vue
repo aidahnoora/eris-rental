@@ -11,7 +11,7 @@ const route = useRoute();
 const customers = ref([]);
 const customer_id = ref("");
 
-// const nota = ref("");
+const perjanjian = ref("");
 const tgl_sewa = ref("");
 const tgl_kembali = ref("");
 const tgl_pengembalian_mobil = ref("");
@@ -51,7 +51,7 @@ const getItemTransaksis = async () => {
 onMounted(async () => {
   await api.get(`/api/transaksis/${route.params.id}`).then((response) => {
     customer_id.value = response.data.data.customer_id;
-    // nota.value = response.data.data.nota;
+    perjanjian.value = response.data.data.perjanjian;
     tgl_sewa.value = response.data.data.tgl_sewa;
     tgl_kembali.value = response.data.data.tgl_kembali;
     tgl_pengembalian_mobil.value = response.data.data.tgl_pengembalian_mobil;
@@ -67,13 +67,9 @@ onMounted(async () => {
 });
 
 const calculateTotal = () => {
-  total_sewa.value = total_bayar.value - denda_per_hari.value;
+  total_sewa.value = total_bayar.value;
   total_denda.value = denda_per_hari.value * lama_telat.value;
-  if (status.value == "0") {
-    finalBayar.value = total_bayar.value + total_denda.value;
-  } else {
-    finalBayar.value = total_bayar.value;
-  }
+  finalBayar.value = total_bayar.value + total_denda.value;
 };
 
 watch([tgl_sewa, tgl_kembali, tgl_pengembalian_mobil], () => {
@@ -95,7 +91,7 @@ const updateTransaksi = async () => {
   let formData = new FormData();
 
   formData.append("customer_id", customer_id.value);
-  // formData.append("nota", nota.value);
+  formData.append("perjanjian", perjanjian.value);
   formData.append("tgl_sewa", tgl_sewa.value);
   formData.append("tgl_kembali", tgl_kembali.value);
   formData.append("tgl_pengembalian_mobil", tgl_pengembalian_mobil.value);
@@ -167,18 +163,44 @@ const updateTransaksi = async () => {
                       <span>{{ errors.customer_id[0] }}</span>
                     </div>
                   </div>
-                  <!-- <div class="mb-3">
-                    <label class="form-label fw-bold">Nota</label>
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Tanggal Sewa</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      v-model="tgl_sewa"
+                      disabled
+                    />
+                    <div v-if="errors.tgl_sewa" class="alert alert-danger mt-2">
+                      <span>{{ errors.tgl_sewa[0] }}</span>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Tanggal Kembali</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      v-model="tgl_kembali"
+                      disabled
+                    />
+                    <div
+                      v-if="errors.tgl_kembali"
+                      class="alert alert-danger mt-2"
+                    >
+                      <span>{{ errors.tgl_kembali[0] }}</span>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Durasi Sewa (Hari)</label>
                     <input
                       type="text"
                       class="form-control"
-                      v-model="nota"
-                      placeholder="Masukkan nota"
+                      v-model="durasi_sewa"
+                      disabled
                     />
-                    <div v-if="errors.nota" class="alert alert-danger mt-2">
-                      <span>{{ errors.nota[0] }}</span>
-                    </div>
-                  </div> -->
+                  </div>
+                </div>
+                <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label fw-bold"
                       >Tanggal Pengembalian</label
@@ -187,7 +209,6 @@ const updateTransaksi = async () => {
                       type="date"
                       class="form-control"
                       v-model="tgl_pengembalian_mobil"
-                      :disabled="status === '1'"
                     />
                     <div
                       v-if="errors.tgl_pengembalian_mobil"
@@ -211,55 +232,6 @@ const updateTransaksi = async () => {
                       <span>{{ errors.lama_telat[0] }}</span>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label class="form-label fw-bold">Tanggal Sewa</label>
-                        <input
-                          type="date"
-                          class="form-control"
-                          v-model="tgl_sewa"
-                          disabled
-                        />
-                        <div
-                          v-if="errors.tgl_sewa"
-                          class="alert alert-danger mt-2"
-                        >
-                          <span>{{ errors.tgl_sewa[0] }}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label class="form-label fw-bold"
-                          >Tanggal Kembali</label
-                        >
-                        <input
-                          type="date"
-                          class="form-control"
-                          v-model="tgl_kembali"
-                          disabled
-                        />
-                        <div
-                          v-if="errors.tgl_kembali"
-                          class="alert alert-danger mt-2"
-                        >
-                          <span>{{ errors.tgl_kembali[0] }}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label fw-bold">Durasi Sewa (Hari)</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="durasi_sewa"
-                      disabled
-                    />
-                  </div>
                   <div class="mb-3">
                     <label class="form-label fw-bold">Status Pembayaran</label>
                     <select v-model="status" class="form-select">
@@ -282,7 +254,6 @@ const updateTransaksi = async () => {
                           class="form-control"
                           v-model="denda_per_hari"
                           :readonly="lama_telat === 0"
-                          :disabled="status === '1'"
                           @input="calculateTotal()"
                         />
                       </div>
@@ -299,6 +270,20 @@ const updateTransaksi = async () => {
                         />
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Form Perjanjian</label>
+                  <textarea
+                    class="form-control"
+                    v-model="perjanjian"
+                    cols="30"
+                    rows="5"
+                  ></textarea>
+                  <div v-if="errors.perjanjian" class="alert alert-danger mt-2">
+                    <span>{{ errors.perjanjian[0] }}</span>
                   </div>
                 </div>
               </div>

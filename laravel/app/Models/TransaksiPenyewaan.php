@@ -12,7 +12,6 @@ class TransaksiPenyewaan extends Model
     protected $fillable = [
         'customer_id',
         'user_id',
-        // 'nota',
         'tgl_sewa',
         'tgl_kembali',
         'durasi_sewa',
@@ -22,6 +21,7 @@ class TransaksiPenyewaan extends Model
         'denda_per_hari',
         'total_denda',
         'total_bayar',
+        'perjanjian'
     ];
 
     public function customer()

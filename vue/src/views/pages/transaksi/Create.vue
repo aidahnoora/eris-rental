@@ -12,7 +12,7 @@ const mobils = ref([]);
 const mobil_id = ref(null);
 
 const customer_id = ref("");
-// const nota = ref("");
+const perjanjian = ref("");
 const tgl_sewa = ref("");
 const tgl_kembali = ref("");
 const status = ref("");
@@ -79,8 +79,8 @@ const tambahMobil = () => {
 
   if (mobilSudahDipilih) {
     Swal.fire({
-      icon: "error",
-      title: "Error",
+      icon: "warning",
+      title: "Warning",
       text: "Mobil sudah ditambahkan.",
     });
 
@@ -117,7 +117,7 @@ const storeTransaksi = async () => {
   let formData = new FormData();
 
   formData.append("customer_id", customer_id.value);
-  // formData.append("nota", nota.value);
+  formData.append("perjanjian", perjanjian.value);
   formData.append("tgl_sewa", tgl_sewa.value);
   formData.append("tgl_kembali", tgl_kembali.value);
   formData.append("durasi_sewa", durasi_sewa.value);
@@ -128,7 +128,7 @@ const storeTransaksi = async () => {
 
   mobilTerpilih.value.forEach((mobil, index) => {
     formData.append(`items[${index}][mobil_id]`, mobil.mobil_id);
-    formData.append(`items[${index}][subtotal]`, mobil.subtotal)
+    formData.append(`items[${index}][subtotal]`, mobil.subtotal);
   });
 
   await api
@@ -202,6 +202,15 @@ const mobilOptions = computed(() => {
                     >
                       <span>{{ errors.customer_id[0] }}</span>
                     </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Total Sewa (Rp)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      v-model="totalTransaksi"
+                      readonly
+                    />
                   </div>
                   <!-- <div class="mb-3">
                     <label class="form-label fw-bold">Nota</label>
@@ -280,6 +289,20 @@ const mobilOptions = computed(() => {
                       disabled
                     />
                   </div> -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Form Perjanjian</label>
+                  <textarea
+                    class="form-control"
+                    v-model="perjanjian"
+                    cols="30"
+                    rows="5"
+                  ></textarea>
+                  <div v-if="errors.perjanjian" class="alert alert-danger mt-2">
+                    <span>{{ errors.perjanjian[0] }}</span>
+                  </div>
                 </div>
               </div>
               <div class="row">

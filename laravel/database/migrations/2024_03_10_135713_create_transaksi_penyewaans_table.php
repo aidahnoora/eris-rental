@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('transaksi_penyewaans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id');
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
             $table->foreignId('user_id');
             $table->string('nota');
             $table->date('tgl_sewa');
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('denda_per_hari')->nullable()->default(0);
             $table->integer('total_denda')->nullable()->default(0);
             $table->integer('total_bayar');
+            $table->text('perjanjian')->nullable();
             $table->timestamps();
         });
     }

@@ -6,7 +6,7 @@ import api from "../../api";
 const route = useRoute();
 
 const customer_id = ref("");
-// const nota = ref("");
+const perjanjian = ref("");
 const tgl_sewa = ref("");
 const tgl_kembali = ref("");
 const tgl_pengembalian_mobil = ref("");
@@ -35,7 +35,7 @@ const getItemTransaksis = async () => {
 onMounted(async () => {
   await api.get(`/api/transaksis/${route.params.id}`).then((response) => {
     customer_id.value = response.data.data.customer_id;
-    // nota.value = response.data.data.nota;
+    perjanjian.value = response.data.data.perjanjian;
     tgl_sewa.value = response.data.data.tgl_sewa;
     tgl_kembali.value = response.data.data.tgl_kembali;
     tgl_pengembalian_mobil.value = response.data.data.tgl_pengembalian_mobil;
@@ -74,19 +74,12 @@ onMounted(async () => {
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <tr>
-                    <td scope="col" width="40%">Customer</td>
-                    <td>:</td>
-                    <td>
-                      {{ customer }}
-                    </td>
-                  </tr>
-                    <!-- <tr>
-                      <td scope="col" width="40%">Nota</td>
+                      <td scope="col" width="20%">Customer</td>
                       <td>:</td>
                       <td>
-                        {{ nota }}
+                        {{ customer }}
                       </td>
-                    </tr> -->
+                    </tr>
                     <tr>
                       <td scope="col">Tanggal Sewa</td>
                       <td>:</td>
@@ -140,6 +133,8 @@ onMounted(async () => {
                       <td>Rp {{ total_bayar }}</td>
                     </tr>
                   </table>
+                  <h5>Perjanjian :</h5>
+                  <p>{{ perjanjian }}</p>
                 </div>
               </div>
               <div class="row">

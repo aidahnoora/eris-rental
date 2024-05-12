@@ -20,7 +20,7 @@ const routes = [
   {
     path: "/",
     name: "/",
-    redirect: "/dashboard",
+    redirect: "/login",
   },
   {
     path: "/users",
@@ -143,6 +143,12 @@ const routes = [
     // meta: { requiresAuth: true },
   },
   {
+    path: '/laporan',
+    name: 'laporan',
+    component: () => import('../views/pages/laporan/penyewaan.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
     path: "/examples/user-profile",
     name: "User Profile",
     component: UserProfile,
@@ -183,16 +189,16 @@ const routes = [
     name: "Profile",
     component: Profile,
   },
-  {
-    path: "/signin",
-    name: "Signin",
-    component: Signin,
-  },
-  {
-    path: "/signup",
-    name: "Signup",
-    component: Signup,
-  },
+  // {
+  //   path: "/signin",
+  //   name: "Signin",
+  //   component: Signin,
+  // },
+  // {
+  //   path: "/signup",
+  //   name: "Signup",
+  //   component: Signup,
+  // },
   {
     path: "/login",
     name: "Login",
