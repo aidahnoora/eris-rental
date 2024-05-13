@@ -48,3 +48,5 @@ Route::get('/transaksi-penyewaan', [TransaksiController::class, 'getByTanggal'])
 
 Route::get('/transaksi-penyewaan/filter', [TransaksiController::class, 'filter']);
 Route::get('/transaksi-penyewaan/export-pdf', [TransaksiController::class, 'exportPDF']);
+
+Route::get('/mobils/filter/{status}', [MobilController::class, 'filterByStatus']);

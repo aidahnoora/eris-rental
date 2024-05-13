@@ -103,6 +103,14 @@ const routes = [
     },
   },
   {
+    path: "/mobils/look",
+    name: "mobils.look",
+    component: () => import("../views/pages/mobil/Look.vue"),
+    meta: {
+      // middleware: auth,
+    },
+  },
+  {
     path: "/mobils/edit/:id",
     name: "mobils.edit",
     component: () => import("../views/pages/mobil/Edit.vue"),

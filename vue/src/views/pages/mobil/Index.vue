@@ -49,12 +49,21 @@ const deleteMobil = async (id) => {
             class="card-header d-flex justify-content-between align-items-center"
           >
             <h5 class="m-0">Data Mobil</h5>
-            <router-link
-              :to="{ name: 'mobils.create' }"
-              class="btn btn-md btn-success rounded shadow border-0"
-              >Tambah</router-link
-            >
+            <div class="col-md-auto">
+              <router-link
+                :to="{ name: 'mobils.look' }"
+                class="btn btn-md btn-primary rounded shadow border-0"
+                style="margin-right: 10px;"
+                >Lihat Ketersediaan Mobil</router-link
+              >
+              <router-link
+                :to="{ name: 'mobils.create' }"
+                class="btn btn-md btn-success rounded shadow border-0"
+                >Tambah</router-link
+              >
+            </div>
           </div>
+
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered">
@@ -91,9 +100,7 @@ const deleteMobil = async (id) => {
                     <td class="text-center">
                       {{ mobil.stok }}
                     </td>
-                    <td class="text-center">
-                      Rp {{ mobil.harga }}
-                    </td>
+                    <td class="text-center">Rp {{ mobil.harga }}</td>
                     <td class="text-center">
                       <router-link
                         :to="{

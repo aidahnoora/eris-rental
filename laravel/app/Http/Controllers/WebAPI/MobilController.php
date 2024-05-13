@@ -139,4 +139,17 @@ class MobilController extends Controller
 
         return new GeneralResource(true, 'Data Mobil Berhasil Dihapus!', null);
     }
+
+    public function filterByStatus($status)
+    {
+        if ($status == 'ada') {
+            $mobils = DataMobil::where('stok', '>', 0)->get();
+        } else if ($status == 'kosong') {
+            $mobils = DataMobil::where('stok', 0)->get();
+        } else {
+            $mobils = DataMobil::all();
+        }
+
+        return response()->json(['data' => $mobils]);
+    }
 }

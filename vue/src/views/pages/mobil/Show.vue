@@ -57,7 +57,7 @@ onMounted(async () => {
             <div class="table-responsive">
               <table class="table table-bordered">
                 <tr>
-                  <td scope="col" width="25%">Gambar</td>
+                  <td scope="col" width="20%">Gambar</td>
                   <td>:</td>
                   <td>
                     <img
