@@ -88,13 +88,22 @@
                       <td class="text-center">
                         {{ transaksi.tgl_sewa }}
                       </td>
-                      <td style="text-align: center" v-if="transaksi.status == '0'">
+                      <td
+                        style="text-align: center"
+                        v-if="transaksi.status == '0'"
+                      >
                         Belum Dikembalikan
                       </td>
-                      <td style="text-align: center" v-if="transaksi.status == '1'">
+                      <td
+                        style="text-align: center"
+                        v-if="transaksi.status == '1'"
+                      >
                         Sudah Dikembalikan
                       </td>
-                      <td class="text-center" v-if="transaksi.tgl_pengembalian_mobil == NULL">
+                      <td
+                        class="text-center"
+                        v-if="transaksi.tgl_pengembalian_mobil == NULL"
+                      >
                         -
                       </td>
                       <td class="text-center" v-else>
@@ -117,6 +126,7 @@
 
 <script>
 import axios from "axios";
+import Api from "../../api";
 
 export default {
   data() {
@@ -145,8 +155,8 @@ export default {
     async filterData() {
       if (this.bulan && this.tahun) {
         try {
-          const response = await axios.get(
-            `http://127.0.0.1:8000/api/transaksi-penyewaan/filter?bulan=${this.bulan}&tahun=${this.tahun}`
+          const response = await Api.get(
+            `/api/transaksi-penyewaan/filter?bulan=${this.bulan}&tahun=${this.tahun}`
           );
 
           this.transaksis = response.data.transaksis;
@@ -161,7 +171,8 @@ export default {
       if (this.bulan && this.tahun) {
         try {
           window.open(
-            `http://127.0.0.1:8000/api/transaksi-penyewaan/export-pdf?bulan=${this.bulan}&tahun=${this.tahun}`,
+            // ubah ip address local disini (sesuaikan dengan ip address saat di ipconfig)
+            `http://192.168.0.105:8000/api/transaksi-penyewaan/export-pdf?bulan=${this.bulan}&tahun=${this.tahun}`,
             "_blank"
           );
         } catch (error) {

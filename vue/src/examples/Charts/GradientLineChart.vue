@@ -1,6 +1,6 @@
 <script>
 import Chart from "chart.js/auto";
-import axios from "axios"; // Import Axios untuk melakukan permintaan HTTP
+import api from "../../views/api/index.js";
 
 export default {
   name: "gradient-line-chart",
@@ -23,7 +23,7 @@ export default {
   mounted() {
     var ctx1 = document.getElementById("chart-line").getContext("2d");
 
-    axios.get("http://127.0.0.1:8000/api/get-transaction")
+    api.get("/api/get-transaction")
       .then(response => {
         const responseData = response.data; // Data dari respons API
 

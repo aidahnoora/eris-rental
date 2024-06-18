@@ -80,9 +80,9 @@
 
 <script>
 import ArgonSwitch from "@/components/ArgonSwitch.vue";
-import axios from "axios";
 import Swal from "sweetalert2";
 import logo from "@/assets/img/logo.png";
+import api from "../../views/api/index.js";
 
 const body = document.getElementsByTagName("body")[0];
 
@@ -118,13 +118,13 @@ export default {
   methods: {
     login() {
       if (this.user.email && this.user.password) {
-        axios
-          .get("http://localhost:8000/sanctum/csrf-cookie")
+        api
+          .get("/sanctum/csrf-cookie")
           .then((response) => {
             console.log(response);
 
-            axios
-              .post("http://localhost:8000/api/login", {
+            api
+              .post("/api/login", {
                 email: this.user.email,
                 password: this.user.password,
               })

@@ -13,13 +13,13 @@ class AuthController extends Controller
     {
         try {
             $request->validate([
-                'name' => ['required', 'string', 'max:255'],
+                // 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', 'min:6'],
             ]);
 
             User::create([
-                'name' => $request->name,
+                // 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
@@ -53,20 +53,20 @@ class AuthController extends Controller
 
             $user = User::where('email', $request->email)->first();
 
-                if (!$user || !Hash::check($request->password, $user->password)) {
-                    return response([
-                        'success'   => false,
-                        'message' => ['These credentials do not match our records.']
-                    ], 404);
-                }
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return response([
+                    'success'   => false,
+                    'message' => ['These credentials do not match our records.']
+                ], 404);
+            }
 
-                $token = $user->createToken('ApiToken')->plainTextToken;
+            $token = $user->createToken('ApiToken')->plainTextToken;
 
-                $response = [
-                    'success'   => true,
-                    'user'      => $user,
-                    'token'     => $token
-                ];
+            $response = [
+                'success'   => true,
+                'user'      => $user,
+                'token'     => $token
+            ];
 
             return response($response, 201);
         } catch (\Exception $error) {

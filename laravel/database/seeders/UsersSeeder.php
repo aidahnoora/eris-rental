@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 class UsersSeeder extends Seeder
@@ -22,10 +23,11 @@ class UsersSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
         User::create([
-            'name' => 'Admin',
             'email' => 'admin@gmail.com',
+            // entah mengapa bcrypt dan hash di projek ini malah error (laravel postgre)
             'password' => 'admin',
             'image' => 'bruce-mars.jpg',
+            'role' => 'admin',
         ]);
     }
 }

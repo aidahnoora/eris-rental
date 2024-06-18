@@ -5,6 +5,7 @@ namespace App\Http\Controllers\WebAPI;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GeneralResource;
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,7 +13,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::paginate(100);
+        $customers = Customer::with('user')->paginate(100);
 
         return new GeneralResource(true, 'List Data Customers', $customers);
     }
@@ -33,6 +34,7 @@ class CustomerController extends Controller
         }
 
         $customer = Customer::create([
+            'user_id' => $request->user_id,
             'nama' => $request->nama,
             'identitas' => $request->identitas,
             'jaminan' => $request->jaminan,
@@ -69,6 +71,7 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
 
         $customer->update([
+            'user_id' => $request->user_id,
             'nama' => $request->nama,
             'identitas' => $request->identitas,
             'jaminan' => $request->jaminan,

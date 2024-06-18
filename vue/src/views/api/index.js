@@ -1,7 +1,8 @@
-import axios from "axios"
+import axios from "axios";
 
 const Api = axios.create({
-  baseURL: 'http://localhost:8000',
-})
+  // ubah ip address local disini (sesuaikan dengan ip address saat di ipconfig)
+  baseURL: "http://192.168.0.105:8000",
+});
 
-export default Api
+export default Api;

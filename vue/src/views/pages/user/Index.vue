@@ -1,14 +1,27 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import api from "../../api";
+import profile from "@/assets/img/icon_name.png";
 
 const users = ref([]);
-const baseURL = "http://localhost:8000/storage/photos/";
+
+// ubah ip address local disini (sesuaikan dengan ip address saat di ipconfig)
+const baseURL = "http:///192.168.0.105:8000/storage/photos/";
 
 const fetchDataUsers = async () => {
   await api.get("/api/users").then((response) => {
     users.value = response.data.data.data;
   });
+};
+
+const imageExists = async (url) => {
+  try {
+    const response = await fetch(url);
+    return response.ok;
+  } catch (error) {
+    console.error("Error checking image existence:", error);
+    return false;
+  }
 };
 
 onMounted(() => {
@@ -32,7 +45,7 @@ onMounted(() => {
                 <thead class="text-center">
                   <tr>
                     <th>No.</th>
-                    <th scope="col">Nama</th>
+                    <th scope="col">Role</th>
                     <th scope="col">Foto</th>
                     <th scope="col">Email</th>
                   </tr>
@@ -45,20 +58,17 @@ onMounted(() => {
                       </div>
                     </td>
                   </tr>
-                  <tr
-                    v-else
-                    v-for="(user, index) in users"
-                    :key="index"
-                  >
+                  <tr v-else v-for="(user, index) in users" :key="index">
                     <td class="text-center">{{ index + 1 }}.</td>
-                    <td>
-                      {{ user.name }}
+                    <td class="text-center">
+                      {{ user.role }}
                     </td>
                     <td class="text-center">
                       <img
                         :src="`${baseURL}${user.image}`"
                         width="100"
-                        style="border-radius: 100%;"
+                        style="border-radius: 100%"
+                        :onerror="`this.src='${profile}'`"
                       />
                     </td>
                     <td class="text-center">

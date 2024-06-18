@@ -80,8 +80,8 @@ import Breadcrumbs from "../Breadcrumbs.vue";
 import { mapMutations, mapActions } from "vuex";
 import placeholder from "../../assets/img/placeholder.jpg";
 import showSwal from "../../mixins/showSwal.js";
-import axios from "axios";
 import Swal from "sweetalert2";
+import api from "../../views/api/index.js";
 
 export default {
   name: "navbar",
@@ -119,8 +119,8 @@ export default {
   mixins: [showSwal],
   created() {
     this.minNav;
-    axios
-      .get("http://localhost:8000/api/user", {
+    api
+      .get("/api/user", {
         headers: { Authorization: "Bearer " + this.token },
       })
       .then((response) => {
@@ -138,7 +138,7 @@ export default {
     },
     async handleLogout() {
       try {
-        await axios.get("http://localhost:8000/api/logout");
+        await api.get("/api/logout");
         localStorage.removeItem("loggedIn");
         localStorage.removeItem("token");
 

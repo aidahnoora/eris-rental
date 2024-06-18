@@ -4,7 +4,8 @@ import { onMounted, ref } from "vue";
 import api from "../../api";
 
 const mobils = ref([]);
-const baseURL = "http://localhost:8000/storage/posts/";
+// ubah ip address local disini (sesuaikan dengan ip address saat di ipconfig)
+const baseURL = "http:///192.168.0.105:8000/storage/posts/";
 
 const fetchDataMobils = async () => {
   await api.get("/api/mobils").then((response) => {
@@ -53,7 +54,7 @@ const deleteMobil = async (id) => {
               <router-link
                 :to="{ name: 'mobils.look' }"
                 class="btn btn-md btn-primary rounded shadow border-0"
-                style="margin-right: 10px;"
+                style="margin-right: 10px"
                 >Lihat Ketersediaan Mobil</router-link
               >
               <router-link

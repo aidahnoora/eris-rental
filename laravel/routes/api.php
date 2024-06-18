@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\MobileAPI\MerkController as MobileAPIMerkController;
+use App\Http\Controllers\MobileAPI\MobilController as MobileAPIMobilController;
+use App\Http\Controllers\MobileAPI\TransaksiController as MobileAPITransaksiController;
+use App\Http\Controllers\MobileAPI\UserController as MobileAPIUserController;
 use App\Http\Controllers\WebAPI\AuthController;
 use App\Http\Controllers\WebAPI\DashboardController;
 use Illuminate\Http\Request;
@@ -29,6 +33,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Web API
+
 Route::apiResource('/customers', CustomerController::class);
 Route::apiResource('/users', UserController::class);
 Route::apiResource('/merks', MerkController::class);
@@ -45,8 +51,26 @@ Route::get('/get-transaction', [DashboardController::class, 'getTransaction'])->
 Route::get('/get-categories', [DashboardController::class, 'getCategories'])->name('get-categories');
 
 Route::get('/transaksi-penyewaan', [TransaksiController::class, 'getByTanggal']);
-
 Route::get('/transaksi-penyewaan/filter', [TransaksiController::class, 'filter']);
 Route::get('/transaksi-penyewaan/export-pdf', [TransaksiController::class, 'exportPDF']);
 
 Route::get('/mobils/filter/{status}', [MobilController::class, 'filterByStatus']);
+
+
+// Mobile API
+
+Route::get('cars', [MobileAPIMobilController::class, 'all']);
+// Route::get('merks', [MobileAPIMerkController::class, 'all']);
+
+Route::post('signup', [MobileAPIUserController::class, 'register']);
+Route::post('signin', [MobileAPIUserController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('fetch', [MobileAPIUserController::class, 'fetch']);
+    Route::post('fetch', [MobileAPIUserController::class, 'updateProfile']);
+    Route::post('signout', [MobileAPIUserController::class, 'logout']);
+
+    Route::get('transaksi', [MobileAPITransaksiController::class, 'all']);
+    Route::post('booking', [MobileAPITransaksiController::class, 'checkout']);
+
+});

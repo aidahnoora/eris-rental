@@ -18,7 +18,8 @@ const harga = ref("");
 const transmisi = ref("");
 const merk = ref("");
 
-const baseURL = "http://localhost:8000/storage/posts/";
+// ubah ip address local disini (sesuaikan dengan ip address saat di ipconfig)
+const baseURL = "http://192.168.0.105:8000/storage/posts/";
 
 onMounted(async () => {
   await api.get(`/api/mobils/${route.params.id}`).then((response) => {
@@ -112,9 +113,7 @@ onMounted(async () => {
                 <tr>
                   <td scope="col">Kapasitas</td>
                   <td>:</td>
-                  <td>
-                    {{ kapasitas }} orang
-                  </td>
+                  <td>{{ kapasitas }} orang</td>
                 </tr>
                 <tr>
                   <td scope="col">BBM</td>
@@ -126,9 +125,7 @@ onMounted(async () => {
                 <tr>
                   <td scope="col">Harga Sewa</td>
                   <td>:</td>
-                  <td>
-                    Rp {{ harga }}
-                  </td>
+                  <td>Rp {{ harga }}</td>
                 </tr>
                 <tr>
                   <td scope="col">Transmisi</td>

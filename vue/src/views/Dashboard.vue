@@ -64,7 +64,7 @@
 <script>
 import Card from "../examples/Cards/Card.vue";
 import GradientLineChart from "../examples/Charts/GradientLineChart.vue";
-import axios from "axios";
+import api from "../views/api/index.js";
 
 export default {
   name: "dashboard",
@@ -105,8 +105,8 @@ export default {
   methods: {
     async fetchData() {
       try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/get-categories"
+        const response = await api.get(
+          "/api/get-categories"
         );
         this.stats.money.value = response.data.data.categories; // Menggunakan data categories
         this.stats.users.value = response.data.data.books;

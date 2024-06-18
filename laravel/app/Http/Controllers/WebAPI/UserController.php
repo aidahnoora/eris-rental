@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-      $users = User::paginate(100);
+      $users = User::with('customer')->paginate(100);
 
       return new GeneralResource(true, 'List Data Users', $users);
     }
